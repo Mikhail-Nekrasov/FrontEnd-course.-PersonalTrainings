@@ -61,7 +61,7 @@ export default function Trainings() {
   ];
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ height: 600, width: '100%', maxWidth: 860, marginLeft: 20 }}>
       <h2>Trainings</h2>
       <div style={{ height: 600, width: '100%' }}>
         <DataGrid
@@ -70,7 +70,7 @@ export default function Trainings() {
           getRowId={(row) => row.id}
           pageSizeOptions={[10, 20, 50]}
           initialState={{
-            pagination: { paginationModel: { pageSize: 10, page: 0 } },
+            pagination: { paginationModel: { pageSize: 5 } }
           }}
           autoHeight
         />

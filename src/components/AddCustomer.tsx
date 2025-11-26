@@ -1,23 +1,107 @@
-import { useState } from 'react';
-import { addCustomer } from '../api';
+import { Box, TextField, Button } from "@mui/material";
 
-interface Props {
-    onAdded: () => void;
+interface AddCustomerRowProps {
+  newCustomer: any;
+  setNewCustomer: (value: any) => void;
+  onAdd: () => void;
 }
 
-export default function AddCustomer({ onAdded }: Props) {
-    const [customer, setCustomer] = useState({ firstname: '', lastname: '', email: '' });
+export default function AddCustomerRow({
+  newCustomer,
+  setNewCustomer,
+  onAdd
+}: AddCustomerRowProps) {
+  return (
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: "140px 140px 190px 140px 140px 100px 100px 130px",
+        gap: 1,
+        p: 1,
+        borderTop: "1px solid #ddd",
+        backgroundColor: "#fafafa"
+      }}
+    >
+      <TextField
+        size="small"
+        label="Firstname"
+        value={newCustomer.firstname}
+        onChange={(e) =>
+          setNewCustomer({ ...newCustomer, firstname: e.target.value })
+        }
+      />
 
-    function handleSubmit() {
-        addCustomer(customer).then(() => onAdded()).catch(err => alert(err));
-    }
+      <TextField
+        size="small"
+        label="Lastname"
+        value={newCustomer.lastname}
+        onChange={(e) =>
+          setNewCustomer({ ...newCustomer, lastname: e.target.value })
+        }
+      />
 
-    return (
-        <div>
-            <input placeholder="First name" onChange={e => setCustomer({ ...customer, firstname: e.target.value })} />
-            <input placeholder="Last name" onChange={e => setCustomer({ ...customer, lastname: e.target.value })} />
-            <input placeholder="Email" onChange={e => setCustomer({ ...customer, email: e.target.value })} />
-            <button onClick={handleSubmit}>Add</button>
-        </div>
-    );
+      <TextField
+        size="small"
+        label="Email"
+        value={newCustomer.email}
+        onChange={(e) =>
+          setNewCustomer({ ...newCustomer, email: e.target.value })
+        }
+      />
+
+      <TextField
+        size="small"
+        label="Phone"
+        value={newCustomer.phone}
+        onChange={(e) =>
+          setNewCustomer({ ...newCustomer, phone: e.target.value })
+        }
+      />
+
+      <TextField
+        size="small"
+        label="Street"
+        value={newCustomer.streetaddress}
+        onChange={(e) =>
+          setNewCustomer({
+            ...newCustomer,
+            streetaddress: e.target.value
+          })
+        }
+      />
+
+      <TextField
+        size="small"
+        label="City"
+        value={newCustomer.city}
+        onChange={(e) =>
+          setNewCustomer({
+            ...newCustomer,
+            city: e.target.value
+          })
+        }
+      />
+
+      <TextField
+        size="small"
+        label="Postcode"
+        value={newCustomer.postcode}
+        onChange={(e) =>
+          setNewCustomer({
+            ...newCustomer,
+            postcode: e.target.value
+          })
+        }
+      />
+
+      <Button
+        variant="contained"
+        color="success"
+        onClick={onAdd}
+        sx={{ height: "40px" }}
+      >
+        Add
+      </Button>
+    </Box>
+  );
 }

@@ -31,6 +31,17 @@ export const addCustomer = (customer: any) => {
     });
 };
 
+export const updateCustomer = (url: string, customer: any) => {
+    return fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(customer)
+    }).then(res => {
+        if (!res.ok) throw new Error('Error updating customer: ' + res.statusText);
+        return res.json();
+    });
+};
+
 export const deleteCustomer = (url: string) => {
     return fetch(url, { method: 'DELETE' })
         .then(res => {
