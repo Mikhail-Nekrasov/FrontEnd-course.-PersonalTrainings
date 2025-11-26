@@ -5,7 +5,7 @@ export const fetchCustomers = () => {
         .then(res => {
             if (!res.ok) throw new Error('Error fetching customers: ' + res.statusText);
             return res.json();
-    });
+        });
 };
 
 export const fetchTrainings = () => {
@@ -13,7 +13,11 @@ export const fetchTrainings = () => {
         .then(res => {
             if (!res.ok) throw new Error('Error fetching trainings: ' + res.statusText);
             return res.json();
-    });
+        })
+        .then(data => {
+            console.log('API returned:', data);
+            return data;
+        });
 };
 
 export const addCustomer = (customer: any) => {
@@ -29,10 +33,10 @@ export const addCustomer = (customer: any) => {
 
 export const deleteCustomer = (url: string) => {
     return fetch(url, { method: 'DELETE' })
-    .then(res => {
-        if (!res.ok) throw new Error('Error deleting customer: ' + res.statusText);
-        return res.json();
-    });
+        .then(res => {
+            if (!res.ok) throw new Error('Error deleting customer: ' + res.statusText);
+            return res.json();
+        });
 };
 
 export const addTraining = (training: any) => {
@@ -51,5 +55,5 @@ export const deleteTraining = (url: string) => {
         .then(res => {
             if (!res.ok) throw new Error('Error deleting training: ' + res.statusText);
             return res.json();
-    });
+        });
 };
