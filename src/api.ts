@@ -50,10 +50,11 @@ export const addTraining = (training: any) => {
     });
 };
 
-export const deleteTraining = (url: string) => {
-    return fetch(url, { method: 'DELETE' })
-        .then(res => {
-            if (!res.ok) throw new Error('Error deleting training: ' + res.statusText);
-            return res.json();
-        });
+export const deleteTraining = (id: number) => {
+  const url = `${BASE_URL}/trainings/${id}`;
+  return fetch(url, { method: 'DELETE' })
+    .then(res => {
+      if (!res.ok) throw new Error('Error deleting training: ' + res.statusText);
+      return res;
+    });
 };
