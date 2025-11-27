@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { addCustomer, fetchCustomers, deleteCustomer } from '../api';
 import AddCustomer from '../components/AddCustomer';
+import ExportCSV from "../components/ExportCSV";
 import LoadingSpinner from '../components/LoadingSpinner';
 import { DataGrid } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
@@ -11,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function Customers() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -174,7 +176,30 @@ export default function Customers() {
 
   return (
     <div style={{ height: 600, width: '100%', maxWidth: 1200, marginLeft: 20 }}>
-      <h2>Customers</h2>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <h2>Customers</h2>
+
+        <ExportCSV
+          data={customers}
+          filename="customers.csv"
+          columns={[
+            "firstname",
+            "lastname",
+            "email",
+            "phone",
+            "streetaddress",
+            "postcode",
+            "city"
+          ]}
+        />
+
+      </div>
+
+
         <AddCustomer
           newCustomer={newCustomer}
           setNewCustomer={setNewCustomer}

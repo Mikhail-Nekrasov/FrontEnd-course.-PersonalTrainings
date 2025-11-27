@@ -5,6 +5,7 @@ import CustomerDetails from './pages/CustomerDetails';
 import TrainingDetails from './pages/TrainingDetails';
 import NotFound from './pages/NotFound';
 import AddTraining from './components/AddTraining';
+import Calendar from './pages/Calendar';
 
 export default function Router() {
     return (
@@ -16,6 +17,8 @@ export default function Router() {
         <Route path="/trainings" element={<Trainings />} />
         <Route path="/trainings/:id" element={<TrainingDetails />} />
         <Route path="/trainings/add/:customerUrl" element={<AddTraining />} />
+
+        <Route path="/calendar" element={<Calendar />} />
 
 
         <Route path="*" element={<NotFound />} />
