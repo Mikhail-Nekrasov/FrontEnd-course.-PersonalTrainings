@@ -1,73 +1,100 @@
-import { useState, useEffect } from 'react';
-import { addTraining, fetchCustomers } from '../api';
-import type { Customer, Training } from '../types';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addTraining } from '../api';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Paper
+} from '@mui/material';
+import { enGB } from 'date-fns/locale';
 
-export default function AddTraining({ onAdded }: { onAdded: () => void }) {
+export default function AddTraining() {
+  const { customerUrl } = useParams();
+  const navigate = useNavigate();
+
+  const [date, setDate] = useState<Date | null>(new Date());
   const [activity, setActivity] = useState('');
-  const [date, setDate] = useState('');
   const [duration, setDuration] = useState('');
-  const [customerId, setCustomerId] = useState('');
-  const [customers, setCustomers] = useState<Customer[]>([]);
 
-  useEffect(() => {
-    fetchCustomers()
-      .then((data) => setCustomers(data?._embedded?.customers || []))
-      .catch(console.error);
-  }, []);
+  async function handleSave() {
+    if (!date) return alert('Please select a date');
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!activity || !date || !duration || !customerId) return alert('All fields are required');
-
-    const customer = customers.find((c) => c._links.self.href === customerId);
-    if (!customer) return alert('Invalid customer');
-
-    const newTraining: Partial<Training> = {
+    const training = {
+      date: date.toISOString(),
       activity,
-      date,
       duration: Number(duration),
-      customer,
+      customer: decodeURIComponent(customerUrl!)
     };
 
-    addTraining(newTraining)
-      .then(() => {
-        onAdded();
-        setActivity('');
-        setDate('');
-        setDuration('');
-        setCustomerId('');
-      })
-      .catch(console.error);
+    try {
+      await addTraining(training);
+      navigate('/trainings');
+    } catch (err: any) {
+      alert(err);
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '1rem' }}>
-      <input
-        type="text"
-        placeholder="Activity"
+    <Paper
+      sx={{
+        maxWidth: 500,
+        margin: '20px auto',
+        padding: 3
+      }}
+    >
+      <Typography variant="h5" mb={2}>
+        Add Training
+      </Typography>
+
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
+        <DateTimePicker
+          label="Training Date"
+          value={date}
+          ampm = {false}
+          onChange={(newValue) => setDate(newValue)}
+          slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
+        />
+      </LocalizationProvider>
+
+      <TextField
+        label="Activity"
+        fullWidth
+        margin="normal"
         value={activity}
         onChange={(e) => setActivity(e.target.value)}
       />
-      <input
-        type="datetime-local"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-      <input
+
+      <TextField
+        label="Duration (minutes)"
+        fullWidth
+        margin="normal"
         type="number"
-        placeholder="Duration (min)"
         value={duration}
         onChange={(e) => setDuration(e.target.value)}
       />
-      <select value={customerId} onChange={(e) => setCustomerId(e.target.value)}>
-        <option value="">Select customer</option>
-        {customers.map((c) => (
-          <option key={c._links.self.href} value={c._links.self.href}>
-            {c.firstname} {c.lastname}
-          </option>
-        ))}
-      </select>
-      <button type="submit">Add Training</button>
-    </form>
+
+      <Box mt={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+        >
+          Save
+        </Button>
+
+        <Button
+          variant="outlined"
+          sx={{ ml: 2 }}
+          onClick={() => navigate('/customers')}
+        >
+          Cancel
+        </Button>
+      </Box>
+    </Paper>
   );
 }
