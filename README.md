@@ -1,73 +1,19 @@
-# React + TypeScript + Vite
+# Final Assignment for the course Front End Programming - SOF004AS3AE-3006
+Project topic is an application for a sport company
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## General description:
+Personal Trainer company needs front end app for their customer database. Database contains info about customers and their trainings. They have REST API and documentation that contains all information needed for front end development. This project implements front end for them using React.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Project address:
+[https://mikhail-nekrasov.github.io/FrontEnd-course.-PersonalTrainings/#/customers](https://mikhail-nekrasov.github.io/FrontEnd-course.-PersonalTrainings/#/customers) 
 
-## React Compiler
+## Compliance with requirements:
+- Task 1. Create list pages for customers and trainings. Create navigation for two list pages. List pages should contain following features: sorting, searching or filtering, training list should also show a customer name and tormat the date in the table, eg dd.mm.yyyy hh:mm. (DONE)
+- Task 2. Add following CRUD functions to the customer and training list pages: Add & Edit customer, delete existing customer (add also yes/no confirmation dialog), add training to a customer (use date picker component to enter the exercise date), delete training (Add also yes/no confirmation dialog). (DONE)
+- Task 3. Add Export functionality, that user can export all customers to a CSV file. Filter out any extra data from the file (eg button columns). Add calendar page where personal trainer can see all trainings (monthly, weekly, daily). Deploy your app to some cloud server. (DONE)
+- Task 4. Add statistics page where user can see the amount of minutes by different activities. Show the statistics in bar chart. (DONE)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Developer:
+- Nekrasov Mikhail
